@@ -54,7 +54,7 @@ public class SecurityConfig {
          * authorizeRequests: 요청 URL에 따라 접근 권한을 설정
          */
         http.authorizeHttpRequests()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         return http.build();

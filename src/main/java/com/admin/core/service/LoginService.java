@@ -27,7 +27,7 @@ public class LoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new InternalAuthenticationServiceException("인증 실패"));
+                .orElseThrow(() -> new InternalAuthenticationServiceException("아이디 또는 패스워드를 확인해주세요"));
         List<String> roles = user.getRoleMappings()
                 .stream()
                 .map(role -> "ROLE_" + role.getRoleGroup().getRoleCode())

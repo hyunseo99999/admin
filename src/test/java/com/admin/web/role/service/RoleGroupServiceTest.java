@@ -38,8 +38,11 @@ class RoleGroupServiceTest {
 
         String requestBody = mapper.writeValueAsString(roleGroupDto);
 
-        ResultActions result = mvc.perform(post("/role-group/insert").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+        ResultActions result = mvc.perform(post("/admin/role-group")
+                .content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON));
         String responseBody = result.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 ==> " + requestBody);
         int statusCode = result.andReturn().getResponse().getStatus();
 
         assertThat(statusCode).isEqualTo(HttpStatus.CREATED.value());

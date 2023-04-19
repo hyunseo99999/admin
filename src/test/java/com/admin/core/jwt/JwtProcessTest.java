@@ -4,6 +4,8 @@ import com.admin.DummyObject;
 import com.admin.core.service.LoginUser;
 import com.admin.domain.User;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +15,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JwtProcessTest extends DummyObject {
 
     private User user;
+
+    @PersistenceContext
+    private EntityManager em;
+
 
     @BeforeEach
     void createUser() {

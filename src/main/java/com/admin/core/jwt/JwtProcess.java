@@ -39,7 +39,6 @@ public class JwtProcess {
     public static LoginUser verify(String token) {
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JwtVO.SECRET)).build().verify(token);
         Long id = decodedJWT.getClaim("id").asLong();
-        ObjectMapper mapper = new ObjectMapper();
         List<String> userRoles = decodedJWT.getClaim("roles").asList(String.class);
         List<GrantedAuthority> roles = userRoles
                 .stream().map(SimpleGrantedAuthority::new)
