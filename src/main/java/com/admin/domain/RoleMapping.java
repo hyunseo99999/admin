@@ -6,16 +6,16 @@ import lombok.*;
 @Entity
 @Table(name = "tb_role_mapp")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter @Setter
+@Getter
 public class RoleMapping extends BaseEntity {
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_group_id")
     private RoleGroup roleGroup;
 

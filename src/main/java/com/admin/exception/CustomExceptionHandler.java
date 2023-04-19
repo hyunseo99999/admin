@@ -3,6 +3,7 @@ package com.admin.exception;
 
 import com.admin.exception.ex.CustomApiException;
 import com.admin.exception.ex.CustomValidationException;
+import com.admin.response.ResponseDto;
 import com.admin.response.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,19 +20,19 @@ public class CustomExceptionHandler {
     @ExceptionHandler(CustomApiException.class)
     public ResponseEntity<?> apiException(CustomApiException e) {
         log.error(e.getMessage());
-        return new ResponseEntity<>(new ResponseUtil<>(400, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseDto<>(400, e.getMessage(), null), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CustomValidationException.class)
     public ResponseEntity<?> apiException(CustomValidationException e) {
         log.error(e.getMessage());
-        return new ResponseEntity<>(new ResponseUtil(400, e.getMessage(), e.getErrorMap()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseDto<>(400, e.getMessage(), e.getErrorMap()), HttpStatus.BAD_REQUEST);
     }
 
     // 404예외처리 핸들러
    	@ExceptionHandler(NoHandlerFoundException.class)
    	public ResponseEntity<?> handle404(NoHandlerFoundException e){
-        return new ResponseEntity<>(new ResponseUtil(404, "404 페이지", null), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ResponseDto<>(404, "404 페이지", null), HttpStatus.NOT_FOUND);
    	}
 
 }

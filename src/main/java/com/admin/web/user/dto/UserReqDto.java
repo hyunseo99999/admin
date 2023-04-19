@@ -1,15 +1,17 @@
 package com.admin.web.user.dto;
 
-import com.admin.domain.RoleGroup;
-import com.admin.domain.RoleMapping;
 import com.admin.domain.User;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 public class UserReqDto {
+
+    @Getter @Setter
+    public static  class LoginReqDto {
+        private String username;
+        private String password;
+    }
 
     @Getter @Setter
     public static class SignupReqDto {

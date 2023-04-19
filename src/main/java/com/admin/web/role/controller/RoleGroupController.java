@@ -1,5 +1,6 @@
 package com.admin.web.role.controller;
 
+import com.admin.response.ResponseDto;
 import com.admin.response.ResponseUtil;
 import com.admin.web.role.dto.RoleGroupReqDto;
 import com.admin.web.role.dto.RoleGroupReqDto.RoleGroupSaveReqDto;
@@ -15,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/role-group")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class RoleGroupController {
 
     private final RoleGroupService roleGroupService;
 
-    @PostMapping("/insert")
+    @PostMapping("/role-group")
     public ResponseEntity<?> save(@RequestBody @Valid RoleGroupSaveReqDto roleGroupSaveDto) {
         roleGroupService.save(roleGroupSaveDto);
-        return new ResponseEntity<>(new ResponseUtil<>(201, "저장되었습니다."), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>(201, "저장되었습니다."), HttpStatus.CREATED);
     }
 
 }

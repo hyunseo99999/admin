@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 class EntityTest {
     @PersistenceContext
     private EntityManager em;
-/*
+
     @Test
     @DisplayName("사용자 테스트")
     void user_save_test() {
@@ -61,5 +61,5 @@ class EntityTest {
                 .user(user)
                 .build();
         em.persist(roleMapping);
-    }*/
+    }
 }

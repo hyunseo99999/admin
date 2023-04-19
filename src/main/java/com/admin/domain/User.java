@@ -16,7 +16,7 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String username;
 
     @Column(length = 100, nullable = false)
@@ -36,13 +36,8 @@ public class User extends BaseEntity {
     }
 
     public void addRoleMapping(RoleMapping roleMapping) {
-        if (roleMappings.isEmpty()) {
-            roleMappings = new ArrayList<>();
-            roleMappings.add(roleMapping);
-        } else {
-            roleMappings.add(roleMapping);
-        }
-
+        roleMappings = new ArrayList<>();
+        roleMappings.add(roleMapping);
         roleMapping.setUser(this);
     }
 

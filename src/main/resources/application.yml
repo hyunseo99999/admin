@@ -11,7 +11,7 @@ spring:
     username: sa
     driver-class-name: org.h2.Driver
   jpa:
-    open-in-view: false
+    open-in-view: true
     hibernate:
       ddl-auto: create
     properties:

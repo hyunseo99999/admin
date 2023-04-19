@@ -1,5 +1,6 @@
 package com.admin.web.user.controller;
 
+import com.admin.response.ResponseDto;
 import com.admin.response.ResponseUtil;
 import com.admin.web.role.dto.RoleGroupReqDto;
 import com.admin.web.user.dto.UserReqDto;
@@ -10,22 +11,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/insert")
+    @PostMapping("/users")
     public ResponseEntity<?> userSave(@RequestBody @Valid SignupReqDto signupReqDto) {
-        System.out.println("test1111");
         userService.save(signupReqDto);
-        return new ResponseEntity<>(new ResponseUtil<>(201, "저장되었습니다."), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>(201, "저장되었습니다."), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/users")
+    public String findUsers() {
+        return "users";
     }
 }
