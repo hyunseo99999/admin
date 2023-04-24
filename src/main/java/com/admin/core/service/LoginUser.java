@@ -1,22 +1,16 @@
 package com.admin.core.service;
 
-import com.admin.domain.RoleMapping;
-import com.admin.domain.User;
+import com.admin.domain.user.User;
 import com.admin.web.role.repository.RoleGroupRepository;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Slf4j

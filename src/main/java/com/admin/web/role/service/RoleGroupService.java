@@ -1,8 +1,7 @@
 package com.admin.web.role.service;
 
-import com.admin.domain.RoleGroup;
+import com.admin.domain.user.RoleGroup;
 import com.admin.exception.ex.CustomApiException;
-import com.admin.web.role.dto.RoleGroupReqDto;
 import com.admin.web.role.repository.RoleGroupRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

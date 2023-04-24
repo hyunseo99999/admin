@@ -1,20 +1,17 @@
 package com.admin.web.user.service;
 
-import com.admin.domain.RoleGroup;
-import com.admin.domain.RoleMapping;
-import com.admin.domain.User;
+import com.admin.domain.user.RoleGroup;
+import com.admin.domain.user.RoleMapping;
+import com.admin.domain.user.User;
 import com.admin.exception.ex.CustomApiException;
 import com.admin.web.role.repository.RoleGroupRepository;
-import com.admin.web.user.dto.UserReqDto;
 import com.admin.web.user.dto.UserReqDto.SignupReqDto;
 import com.admin.web.user.repository.UserRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

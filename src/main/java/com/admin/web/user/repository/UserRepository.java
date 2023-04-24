@@ -1,8 +1,7 @@
 package com.admin.web.user.repository;
 
-import com.admin.domain.User;
+import com.admin.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 

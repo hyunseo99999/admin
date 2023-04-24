@@ -1,6 +1,6 @@
 package com.admin.web.role.repository;
 
-import com.admin.domain.RoleGroup;
+import com.admin.domain.user.RoleGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

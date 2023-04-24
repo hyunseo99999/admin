@@ -1,6 +1,6 @@
 package com.admin.web.role.dto;
 
-import com.admin.domain.RoleGroup;
+import com.admin.domain.user.RoleGroup;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;

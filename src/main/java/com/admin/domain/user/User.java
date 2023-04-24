@@ -1,5 +1,6 @@
-package com.admin.domain;
+package com.admin.domain.user;
 
+import com.admin.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

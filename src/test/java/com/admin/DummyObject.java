@@ -1,9 +1,7 @@
 package com.admin;
 
-import com.admin.domain.RoleGroup;
-import com.admin.domain.RoleMapping;
-import com.admin.domain.User;
-import jakarta.persistence.EntityManager;
+import com.admin.domain.user.RoleGroup;
+import com.admin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

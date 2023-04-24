@@ -1,4 +1,4 @@
-package com.admin.domain;
+package com.admin.domain.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -22,13 +22,13 @@ public class BaseEntity {
     private LocalDateTime createAt;
 
     @CreatedBy
-    @Column(name = "create_id", updatable = false, nullable = true)
+    @Column(name = "create_id", updatable = false, nullable = false)
     private Long createId;
 
     @LastModifiedDate
     private LocalDateTime updateAt;
 
     @LastModifiedBy
-    @Column(name = "update_id" , nullable = true)
+    @Column(name = "update_id" , nullable = false)
     private Long updateId;
 }

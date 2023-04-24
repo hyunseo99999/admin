@@ -2,7 +2,7 @@ package com.admin.core.jwt;
 
 import com.admin.DummyObject;
 import com.admin.core.service.LoginUser;
-import com.admin.domain.User;
+import com.admin.domain.user.User;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

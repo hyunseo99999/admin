@@ -1,17 +1,14 @@
 package com.admin.core.jwt;
 
 import com.admin.core.service.LoginUser;
-import com.admin.domain.User;
+import com.admin.domain.user.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 

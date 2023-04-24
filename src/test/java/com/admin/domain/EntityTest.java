@@ -1,5 +1,8 @@
 package com.admin.domain;
 
+import com.admin.domain.user.RoleGroup;
+import com.admin.domain.user.RoleMapping;
+import com.admin.domain.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;

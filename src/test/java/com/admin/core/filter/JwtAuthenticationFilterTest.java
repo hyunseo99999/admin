@@ -1,28 +1,21 @@
 package com.admin.core.filter;
 
 import com.admin.DummyObject;
-import com.admin.domain.RoleGroup;
-import com.admin.domain.RoleMapping;
-import com.admin.domain.User;
+import com.admin.domain.user.RoleGroup;
+import com.admin.domain.user.RoleMapping;
+import com.admin.domain.user.User;
 import com.admin.web.role.repository.RoleGroupRepository;
 import com.admin.web.user.dto.UserReqDto.LoginReqDto;
 import com.admin.web.user.repository.UserRepository;
-import com.admin.web.user.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 

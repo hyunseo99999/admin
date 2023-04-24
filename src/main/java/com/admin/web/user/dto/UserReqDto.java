@@ -1,6 +1,6 @@
 package com.admin.web.user.dto;
 
-import com.admin.domain.User;
+import com.admin.domain.user.User;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.admin.web.user.dto;
 
-import com.admin.domain.User;
+import com.admin.domain.user.User;
 import com.admin.util.DateUtil;
 
 public class UserRespDto {
