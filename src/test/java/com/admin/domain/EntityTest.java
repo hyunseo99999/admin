@@ -9,9 +9,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @Transactional
 class EntityTest {
     @PersistenceContext
@@ -25,7 +27,7 @@ class EntityTest {
                 .password("1234")
                 .useYn("Y")
                 .build();
-
+        user.setCreateId(1L);
         em.persist(user);
     }
 
@@ -35,27 +37,29 @@ class EntityTest {
         RoleGroup roleGroup = RoleGroup.builder()
                 .roleNm("ADMIN")
                 .roleDc("ADMIN")
+                .roleCode("ADMIN")
                 .build();
-
+        roleGroup.setCreateId(1L);
         em.persist(roleGroup);
     }
 
     @Test
     @DisplayName("사용자_권한그룹_테스트")
-    @Rollback(value = false)
     void user_roleGroup_save_test() {
         RoleGroup roleGroup = RoleGroup.builder()
                 .roleCode("ADMIN")
                 .roleNm("관리자")
                 .roleDc("ADMIN")
                 .build();
+        roleGroup.setCreateId(1L);
         em.persist(roleGroup);
 
         User user = User.builder()
-                .username("admin")
+                .username("admin1")
                 .password("1234")
                 .useYn("Y")
                 .build();
+        user.setCreateId(1L);
         em.persist(user);
 
         RoleMapping roleMapping = RoleMapping
@@ -63,6 +67,7 @@ class EntityTest {
                 .roleGroup(roleGroup)
                 .user(user)
                 .build();
+        roleMapping.setCreateId(1L);
         em.persist(roleMapping);
     }
 }

@@ -2,6 +2,8 @@ package com.admin.core.jwt;
 
 import com.admin.DummyObject;
 import com.admin.core.service.LoginUser;
+import com.admin.domain.user.RoleGroup;
+import com.admin.domain.user.RoleMapping;
 import com.admin.domain.user.User;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import jakarta.persistence.EntityManager;
@@ -15,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +35,22 @@ class JwtProcessTest extends DummyObject {
 
     @BeforeEach
     void createUser() {
+        RoleGroup roleGroup = createRoleGroup();
         user = createRoleUser();
+        RoleMapping roleMapping = RoleMapping.createRoleMapping(roleGroup);
+        List<RoleMapping> roles = new ArrayList<>();
+        roles.add(roleMapping);
+        user.setRoleMappings(roles);
+    }
+
+    public String createToken() {
+        List<GrantedAuthority> roles = user.getRoleMappings()
+                .stream().map(item -> new SimpleGrantedAuthority(item.getRoleGroup().getRoleCode()))
+                .collect(Collectors.toList());
+
+        LoginUser loginUser = new LoginUser(user, roles);
+        String jwtToken = JwtProcess.create(loginUser);
+        return jwtToken;
     }
 
     @Test
@@ -51,9 +69,9 @@ class JwtProcessTest extends DummyObject {
     @Test
     @DisplayName("토큰 검증")
     void jwtVerify_test() {
-        String jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHVkeSIsInJvbGVzIjpbIkFETUlOIl0sImlkIjoxLCJleHAiOjE2ODI0NzI0ODB9.kFVzQNoSrr-kv0GlQO6nieacvQXNk97xs8hV75gNIXnHOc8KIIKcwlCh7c25Mx9GVySutlbwThGzlQ9X7BmoFw";
-        LoginUser loginUser = JwtProcess.verify(jwtToken);
-        assertThat(loginUser.getUser().getId()).isEqualTo(1L);
+        String jwtToken = createToken();
+        String finalJwtToken = jwtToken.replace(JwtVO.TOKEN_PREFIX, "");
+        LoginUser loginUser = JwtProcess.verify(finalJwtToken);
         assertThat(loginUser.getAuthorities()).isNotNull();
     }
 
@@ -61,9 +79,10 @@ class JwtProcessTest extends DummyObject {
     @Test
     @DisplayName("토큰 검증 실패")
     void jwtVerify_fail_test() {
-        String jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHVkeSIsInJvbGVzIjpbIkFETUlOIl0sImlkIjoxLCJleHAiOjE2ODI0NzI0ODB9.kFVzQNoSrr-kv0GlQO6nieacvQXNk97xs8hV75gNIXnHOc8KIIKcwlCh7c25Mx9GVySutlbwThGzlQ9X7Bmo";
+        String jwtToken = createToken() + "aaa";
+        String finalJwtToken = jwtToken.replace(JwtVO.TOKEN_PREFIX, "");
         Assertions.assertThrows(SignatureVerificationException.class, () -> {
-            JwtProcess.verify(jwtToken);
+            JwtProcess.verify(finalJwtToken);
         });
     }
 

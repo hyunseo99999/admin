@@ -6,13 +6,17 @@ import com.admin.domain.user.User;
 import com.admin.exception.ex.CustomApiException;
 import com.admin.web.role.repository.RoleGroupRepository;
 import com.admin.web.user.dto.UserReqDto.SignupReqDto;
+import com.admin.web.user.dto.UserRespDto;
+import com.admin.web.user.dto.UserRespDto.UserListRespDto;
 import com.admin.web.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +44,15 @@ public class UserService {
         signupReqDto.setPassword(passwordEncoder.encode(signupReqDto.getPassword()));
         RoleMapping roleMapping = RoleMapping.createRoleMapping(findRoleGroup);
         User user = User.createUser(signupReqDto.toEntity(), roleMapping);
+        user.setCreateId(user.getId());
         userRepository.save(user);
+    }
+
+    public List<UserListRespDto> findListUser() {
+        List<User> findUsers = userRepository.findAll();
+        return findUsers.stream()
+                        .map(UserListRespDto::new)
+                        .collect(Collectors.toList());
     }
 
 }

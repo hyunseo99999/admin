@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,12 +26,16 @@ public class LoginService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new InternalAuthenticationServiceException("아이디 또는 패스워드를 확인해주세요"));
-        List<String> roles = user.getRoleMappings()
-                .stream()
-                .map(role -> "ROLE_" + role.getRoleGroup().getRoleCode())
-                .collect(Collectors.toList());
 
-        List<GrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (!user.getRoleMappings().isEmpty()) {
+            List<String> roles = user.getRoleMappings()
+                    .stream()
+                    .map(role -> "ROLE_" + role.getRoleGroup().getRoleCode())
+                    .collect(Collectors.toList());
+
+            authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        }
 
         return new LoginUser(user, authorities);
     }

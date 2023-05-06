@@ -5,6 +5,8 @@ import com.admin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
+
 public class DummyObject {
 
     @Autowired
@@ -16,7 +18,6 @@ public class DummyObject {
                 .password(passwordEncoder.encode("1234"))
                 .useYn("Y")
                 .build();
-
         return user;
     }
 
@@ -26,6 +27,9 @@ public class DummyObject {
                 .roleNm("관리자")
                 .roleDc("ADMIN")
                 .build();
+
+        roleGroup.setCreateId(1L);
         return roleGroup;
     }
+
 }

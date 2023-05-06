@@ -15,14 +15,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
+@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 class JwtAuthenticationFilterTest extends DummyObject {
 
@@ -36,14 +43,12 @@ class JwtAuthenticationFilterTest extends DummyObject {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private RoleGroupRepository roleGroupRepository;
 
     @BeforeEach
     public void createUser() {
         RoleGroup roleGroup = roleGroupRepository.save(createRoleGroup());
+
         User user = createRoleUser();
         RoleMapping roleMapping = RoleMapping
                 .builder()
@@ -51,8 +56,11 @@ class JwtAuthenticationFilterTest extends DummyObject {
                 .roleGroup(roleGroup)
                 .build();
 
+        roleMapping.setCreateId(1L);
+
         user.addRoleMapping(roleMapping);
-        userRepository.save(createRoleUser());
+        user.setCreateId(1L);
+        userRepository.save(user);
     }
 
     @Test

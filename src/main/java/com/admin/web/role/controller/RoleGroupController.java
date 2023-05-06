@@ -25,7 +25,7 @@ public class RoleGroupController {
     @PostMapping("/role-group")
     public ResponseEntity<?> save(@RequestBody @Valid RoleGroupSaveReqDto roleGroupSaveDto) {
         roleGroupService.save(roleGroupSaveDto);
-        return new ResponseEntity<>(new ResponseDto<>(201, "저장되었습니다."), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto<>(201, "저장되었습니다.", null), HttpStatus.CREATED);
     }
 
 }

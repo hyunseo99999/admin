@@ -1,5 +1,9 @@
 package com.admin.response;
 
+import com.admin.web.user.dto.UserRespDto;
+import com.admin.web.user.dto.UserRespDto.LoginRespDto;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Builder;
@@ -18,7 +22,7 @@ public class ResponseUtil<T> {
             response.setCharacterEncoding("utf-8");
             response.setStatus(httpStatus.value());
 
-            ResponseDto<?> responseDto = new ResponseDto<>(httpStatus.value(), message);
+            ResponseDto<?> responseDto = new ResponseDto<>(httpStatus.value(), message, null);
             ObjectMapper mapper = new ObjectMapper();
             String responseBody = mapper.writeValueAsString(responseDto);
             response.getWriter().println(responseBody);
@@ -27,10 +31,12 @@ public class ResponseUtil<T> {
         }
     }
 
-    public static void success(HttpServletResponse response, Object dto) {
+    public static void success(HttpServletResponse response, Object data) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            ResponseDto<?> responseDto = new ResponseDto<>(200, "로그인 성공");
+            mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
+            ResponseDto<?> responseDto = new ResponseDto<>(200, "로그인 성공", data);
             String responseBody = mapper.writeValueAsString(responseDto);
             response.setContentType("application/json; charset=utf-8");
             response.setStatus(200);
