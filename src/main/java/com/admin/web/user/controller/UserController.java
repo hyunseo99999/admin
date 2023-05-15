@@ -6,6 +6,7 @@ import com.admin.web.role.dto.RoleGroupReqDto;
 import com.admin.web.user.dto.UserReqDto;
 import com.admin.web.user.dto.UserReqDto.SignupReqDto;
 import com.admin.web.user.dto.UserRespDto;
+import com.admin.web.user.dto.UserRespDto.UserDetailRespDto;
 import com.admin.web.user.dto.UserRespDto.UserListRespDto;
 import com.admin.web.user.service.UserService;
 import jakarta.validation.Valid;
@@ -34,5 +35,11 @@ public class UserController {
     public ResponseEntity<?> findUsers() {
         List<UserListRespDto> findListUser = userService.findListUser();
         return new ResponseEntity<>(new ResponseDto<>(200, "조회되었습니다", findListUser), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> findUser(@PathVariable Long id) {
+        UserDetailRespDto detailUser = userService.findOneUser(id);
+        return new ResponseEntity<>(new ResponseDto<>(200, "조회되었습니다", detailUser), HttpStatus.OK);
     }
 }

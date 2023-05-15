@@ -17,7 +17,13 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(length = 20, nullable = false, unique = true)
+    @Column(length = 20, nullable = false, unique = true, name = "login_id")
+    private String loginId;
+
+    @Column(length = 40, nullable = false)
+    private String email;
+
+    @Column(length = 20, nullable = false)
     private String username;
 
     @Column(length = 100, nullable = false)
@@ -43,8 +49,10 @@ public class User extends BaseEntity {
     }
 
     @Builder
-    public User(Long id, String username, String password, String useYn, List<RoleMapping> roleMappings) {
+    public User(Long id, String loginId, String email, String username, String password, String useYn, List<RoleMapping> roleMappings) {
         this.id = id;
+        this.loginId = loginId;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.useYn = useYn;

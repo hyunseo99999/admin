@@ -7,6 +7,7 @@ import com.admin.exception.ex.CustomApiException;
 import com.admin.web.role.repository.RoleGroupRepository;
 import com.admin.web.user.dto.UserReqDto.SignupReqDto;
 import com.admin.web.user.dto.UserRespDto;
+import com.admin.web.user.dto.UserRespDto.UserDetailRespDto;
 import com.admin.web.user.dto.UserRespDto.UserListRespDto;
 import com.admin.web.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class UserService {
         RoleGroup findRoleGroup = roleGroupRepository.findById(Long.parseLong(signupReqDto.getRoleId()))
                 .orElseThrow(() -> new CustomApiException("권한그룹이 존재하지 않습니다."));
 
-        Optional<User> findByUsername = userRepository.findByUsername(signupReqDto.getUsername());
+        Optional<User> findByUsername = userRepository.findByLoginId(signupReqDto.getLoginId());
         if (findByUsername.isPresent()) {
             throw new CustomApiException("동일한 username이 존재합니다.");
         }
@@ -53,6 +54,12 @@ public class UserService {
         return findUsers.stream()
                         .map(UserListRespDto::new)
                         .collect(Collectors.toList());
+    }
+
+    public UserDetailRespDto findOneUser(Long userId) {
+        User user = userRepository.findUserById(userId)
+                .orElseThrow(() -> new CustomApiException("사용자 정보가 없습니다."));
+        return new UserDetailRespDto(user);
     }
 
 }

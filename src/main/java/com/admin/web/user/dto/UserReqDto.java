@@ -9,12 +9,16 @@ public class UserReqDto {
 
     @Getter @Setter
     public static  class LoginReqDto {
-        private String username;
+        private String loginId;
         private String password;
     }
 
     @Getter @Setter
     public static class SignupReqDto {
+
+        @NotEmpty(message = "로그인 아이디는 필수 입니다.")
+        private String loginId;
+
         @NotEmpty(message = "사용자이름은 필수 입니다.")
         private String username;
         @NotEmpty(message = "패스워드는 필수 입니다.")
@@ -25,8 +29,13 @@ public class UserReqDto {
         @NotEmpty(message = "권한 아이디는 필수 입니다.")
         private String roleId;
 
+        @NotEmpty(message = "이메일은 필수 입니다.")
+        private String email;
+
         public User toEntity() {
             return User.builder()
+                    .loginId(loginId)
+                    .email(email)
                     .username(username)
                     .password(password)
                     .useYn(useYn)

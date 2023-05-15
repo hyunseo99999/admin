@@ -23,8 +23,8 @@ public class LoginService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+        User user = userRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new InternalAuthenticationServiceException("아이디 또는 패스워드를 확인해주세요"));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
