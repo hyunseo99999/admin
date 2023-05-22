@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "tb_role_group")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter @Setter
+@Getter
 public class RoleGroup extends BaseEntity {
 
     @Id
