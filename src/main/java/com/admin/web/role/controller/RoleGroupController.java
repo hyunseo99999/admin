@@ -4,6 +4,7 @@ import com.admin.response.ResponseDto;
 import com.admin.response.ResponseUtil;
 import com.admin.web.role.dto.RoleGroupReqDto;
 import com.admin.web.role.dto.RoleGroupReqDto.RoleGroupSaveReqDto;
+import com.admin.web.role.dto.RoleGroupReqDto.RoleGroupUpdateReqDto;
 import com.admin.web.role.dto.RoleGroupRespDto;
 import com.admin.web.role.service.RoleGroupService;
 import jakarta.validation.Valid;
@@ -31,8 +32,8 @@ public class RoleGroupController {
     }
 
     @PutMapping("/role-group")
-    public ResponseEntity<?> update(@RequestBody @Valid RoleGroupSaveReqDto roleGroupSaveDto, BindingResult bindingResult) {
-        roleGroupService.save(roleGroupSaveDto);
+    public ResponseEntity<?> update(@RequestBody @Valid RoleGroupUpdateReqDto roleGroupUpdateReqDto, BindingResult bindingResult) {
+        roleGroupService.updateRoleGroup(roleGroupUpdateReqDto);
         return new ResponseEntity<>(new ResponseDto<>(204, "수정되었습니다.", null), HttpStatus.CREATED);
     }
 

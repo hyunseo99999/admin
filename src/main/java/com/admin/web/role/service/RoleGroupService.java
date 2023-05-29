@@ -40,6 +40,17 @@ public class RoleGroupService {
         roleGroupRepository.save(roleGroupSaveDto.toEntity());
     }
 
+    @Transactional
+    public void updateRoleGroup(@Valid RoleGroupUpdateReqDto updateReqDto) {
+
+        Optional<RoleGroup> roleGroup = roleGroupRepository.findById(updateReqDto.getId());
+        if (roleGroup.isEmpty()) {
+            throw new CustomApiException("수정 할 아이다가 없습니다.");
+        }
+        RoleGroup findRoleGroup = updateReqDto.toEntity();
+        roleGroupRepository.save(findRoleGroup);
+    }
+
     public List<RoleGroupListRespDto> findListRoleGroup() {
         List<RoleGroup> findByRoleGroups = roleGroupRepository.findAll();
         return findByRoleGroups

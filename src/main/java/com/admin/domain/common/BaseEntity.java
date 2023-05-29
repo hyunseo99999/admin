@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @CreatedDate
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createAt;
 
     @CreatedBy
@@ -26,6 +27,7 @@ public class BaseEntity {
     private Long createId;
 
     @LastModifiedDate
+    @Column(nullable = false)
     private LocalDateTime updateAt;
 
     @LastModifiedBy
