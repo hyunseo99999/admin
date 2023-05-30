@@ -1,22 +1,21 @@
 package com.admin.web.role.controller;
 
 import com.admin.response.ResponseDto;
-import com.admin.response.ResponseUtil;
-import com.admin.web.role.dto.RoleGroupReqDto;
+import com.admin.response.ResponsePageDto;
 import com.admin.web.role.dto.RoleGroupReqDto.RoleGroupSaveReqDto;
 import com.admin.web.role.dto.RoleGroupReqDto.RoleGroupUpdateReqDto;
-import com.admin.web.role.dto.RoleGroupRespDto;
 import com.admin.web.role.service.RoleGroupService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import static com.admin.web.role.dto.RoleGroupRespDto.*;
+import static com.admin.web.role.dto.RoleGroupRespDto.RoleGroupDetailRespDto;
+import static com.admin.web.role.dto.RoleGroupRespDto.RoleGroupListRespDto;
 
 @RestController
 @RequestMapping("/admin")
@@ -39,9 +38,9 @@ public class RoleGroupController {
 
 
     @GetMapping("/role-group")
-    public ResponseEntity<?> roleGroups() {
-        List<RoleGroupListRespDto> findByRoleGroups = roleGroupService.findListRoleGroup();
-        return new ResponseEntity<>(new ResponseDto<>(200, "조회되었습니다.", findByRoleGroups), HttpStatus.OK);
+    public ResponseEntity<?> roleGroups(Pageable pageable) {
+        Page<RoleGroupListRespDto> roleGroups = roleGroupService.findListRoleGroup(pageable);
+        return new ResponseEntity<>(new ResponsePageDto<>(200, "조회되었습니다.", roleGroups), HttpStatus.OK);
     }
 
     @GetMapping("/role-group/{id}")

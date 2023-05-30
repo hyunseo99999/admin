@@ -1,8 +1,8 @@
 package com.admin.web.role.dto;
 
 import com.admin.domain.user.RoleGroup;
-import com.admin.domain.user.User;
 import com.admin.util.DateUtil;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,12 +19,13 @@ public class RoleGroupRespDto {
         private String createName;
 
 
-        public RoleGroupListRespDto(RoleGroup roleGroup, User user) {
+        @QueryProjection
+        public RoleGroupListRespDto(RoleGroup roleGroup, String username) {
             this.id = roleGroup.getId();
             this.roleCode = roleGroup.getRoleCode();
             this.roleNm = roleGroup.getRoleNm();
-            this.createAt = DateUtil.toStringFormat(roleGroup.getCreateAt(), "YYYY-MM-DD");
-            this.createName = user.getUsername();
+            this.createAt = DateUtil.toStringFormat(roleGroup.getCreateAt(), "YYYY-MM-dd");
+            this.createName = username;
         }
     }
 

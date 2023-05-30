@@ -1,24 +1,23 @@
 package com.admin.web.role.service;
 
 import com.admin.domain.user.RoleGroup;
-import com.admin.domain.user.User;
 import com.admin.exception.ex.CustomApiException;
-import com.admin.web.role.dto.RoleGroupRespDto;
 import com.admin.web.role.dto.RoleGroupRespDto.RoleGroupDetailRespDto;
 import com.admin.web.role.dto.RoleGroupRespDto.RoleGroupListRespDto;
+import com.admin.web.role.repository.RoleGroupQueryRepository;
 import com.admin.web.role.repository.RoleGroupRepository;
-import com.admin.web.user.dto.UserRespDto;
 import com.admin.web.user.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.admin.web.role.dto.RoleGroupReqDto.*;
+import static com.admin.web.role.dto.RoleGroupReqDto.RoleGroupSaveReqDto;
+import static com.admin.web.role.dto.RoleGroupReqDto.RoleGroupUpdateReqDto;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +25,8 @@ import static com.admin.web.role.dto.RoleGroupReqDto.*;
 public class RoleGroupService {
 
     private final RoleGroupRepository roleGroupRepository;
+
+    private final RoleGroupQueryRepository roleGroupQueryRepository;
 
     private final UserRepository userRepository;
 
@@ -51,12 +52,8 @@ public class RoleGroupService {
         roleGroupRepository.save(findRoleGroup);
     }
 
-    public List<RoleGroupListRespDto> findListRoleGroup() {
-        List<RoleGroup> findByRoleGroups = roleGroupRepository.findAll();
-        return findByRoleGroups
-                .stream()
-                .map(roleGroup -> new RoleGroupListRespDto(roleGroup, userRepository.findUserById(roleGroup.getCreateId()).get()))
-                .collect(Collectors.toList());
+    public Page<RoleGroupListRespDto> findListRoleGroup(Pageable pageable) {
+        return roleGroupQueryRepository.findAll(pageable);
     }
 
     public RoleGroupDetailRespDto findOneRoleGroup(Long roleGroupId) {
